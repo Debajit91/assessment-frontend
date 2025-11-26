@@ -1,6 +1,7 @@
 import BestSellerSection from "@/src/components/BestSellerSection";
 import { CustomerFeedback } from "@/src/components/CustomerFeedback";
 import { Hero } from "@/src/components/Hero";
+import { TeamSection } from "@/src/components/TeamSection";
 
 
 
@@ -12,6 +13,7 @@ export default function Home() {
         <Hero/>
         <BestSellerSection/>
         <CustomerFeedback/>
+        <TeamSection/>
       </main>
     
   );
