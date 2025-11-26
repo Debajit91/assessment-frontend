@@ -29,7 +29,7 @@ export function AddCategoryModal({ isOpen, onClose, onSave, isSubmitting = false
             transition={{ duration: 0.25 }}
             className="
               bg-[#585858]
-              w-[90%] sm:w-[380px]
+              w-[90%] sm:w-[300px]
               rounded-3xl
               px-5 py-10
               text-center
@@ -53,7 +53,7 @@ export function AddCategoryModal({ isOpen, onClose, onSave, isSubmitting = false
               onChange={(e) => setName(e.target.value)}
               className="
                 w-full
-                h-12
+                h-10
                 bg-[#686868]
                 text-white
                 rounded-full
@@ -70,7 +70,7 @@ export function AddCategoryModal({ isOpen, onClose, onSave, isSubmitting = false
               disabled={isSubmitting}
               className="
                 w-full
-                h-12
+                h-10
                 bg-[#f03328]
                 text-white
                 rounded-full

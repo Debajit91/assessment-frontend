@@ -2,17 +2,21 @@
 
 import React, { useState } from "react";
 import { AddCategoryModal } from "./AddCategoryModal";
+import { AddFoodModal } from "./AddFoodModal";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 const BestSellerSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isFoodModalOpen, setIsFoodModalOpen] = useState(false);
 
-   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingFood, setIsSubmittingFood] = useState(false);
+
   const [error, setError] = useState<string | null>(null);
+  const [foodError, setFoodError] = useState<string | null>(null);
 
-  const handleSaveCategory = async(name:string) => {
+  const handleSaveCategory = async (name: string) => {
     try {
       setIsSubmitting(true);
       setError(null);
@@ -31,7 +35,6 @@ const BestSellerSection = () => {
       const created = await res.json();
       console.log("New Category created:", created);
 
-      
       setModalOpen(false);
     } catch (err: any) {
       console.error(err);
@@ -58,6 +61,10 @@ const BestSellerSection = () => {
       {/* BUTTONS */}
       <div className="flex justify-center gap-4 mb-10">
         <button
+          onClick={() => {
+            setFoodError(null);
+            setIsFoodModalOpen(true);
+          }}
           className="
             bg-[#2C2C2C] text-white px-6 py-2 rounded-full 
           "
@@ -66,7 +73,10 @@ const BestSellerSection = () => {
         </button>
 
         <button
-          onClick={() => {setError(null); setModalOpen(true)}}
+          onClick={() => {
+            setError(null);
+            setModalOpen(true);
+          }}
           className="
             bg-[#2C2C2C] text-white px-6 py-2 rounded-full
           "
@@ -81,6 +91,29 @@ const BestSellerSection = () => {
           onSave={handleSaveCategory}
           isSubmitting={isSubmitting}
           error={error}
+        />
+
+        <AddFoodModal
+          isOpen={isFoodModalOpen}
+          onClose={() => setIsFoodModalOpen(false)}
+          isSubmitting={isSubmittingFood}
+          error={foodError}
+          onSave={async ({ name, category, imageFile }) => {
+            try {
+              setIsSubmittingFood(true);
+              setFoodError(null);
+
+              // ekhane pore API hit korbo: POST /api/products
+              console.log("Food payload:", { name, category, imageFile });
+
+              // success hole modal close
+              setIsFoodModalOpen(false);
+            } catch (err: any) {
+              setFoodError(err.message || "Something went wrong");
+            } finally {
+              setIsSubmittingFood(false);
+            }
+          }}
         />
       </div>
     </section>
