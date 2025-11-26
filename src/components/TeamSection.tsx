@@ -32,7 +32,7 @@ const TEAM = [
 export function TeamSection() {
   return (
     <section className="relative bg-white">
-      <div className="relative bg-[#b8373a] text-white py-16 lg:py-20 overflow-hidden -mt-6">
+      <div className="relative bg-[#b8373a] text-white py-16 lg:py-20 overflow-hidden mt-4 lg:-mt-6">
         <div className="absolute inset-0">
           <Image
             src="/images/bg.png"
@@ -54,7 +54,7 @@ export function TeamSection() {
       </div>
 
       <div className="relative z-20 -mt-38 pb-16 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
           {TEAM.map((person) => (
             <div key={person.id} className="bg-white overflow-hidden shadow-lg">
               <div className="relative w-full h-[260px]">
