@@ -66,14 +66,26 @@ const BestSellerSection = () => {
     fetchFoods();
   }, []);
 
+  const FILTERS = ["All", "Breakfast", "Lunch", "Dinner"];
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+
+  const filteredFoods =
+    activeFilter === "All"
+      ? foods
+      : foods.filter((food) =>
+          (food.category || "")
+            .toLowerCase()
+            .includes(activeFilter.toLowerCase())
+        );
+
   return (
     <section className="lg:pt-28 py-10 max-w-6xl mx-auto">
-      <div className="text-center max-w-2xl mx-auto mb-12 px-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
+      <div className="text-center max-w-2xl mx-auto mb-12 px-2 lg:px-4">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black">
           Our Best Seller Dishes
         </h2>
 
-        <p className="text-base lg:text-xl w-2xl text-gray-600 mt-3 leading-relaxed">
+        <p className="text-sm lg:text-xl lg:w-2xl text-gray-600 mt-3 leading-relaxed">
           Our fresh garden salad is a light and refreshing option. It features a
           mix of crisp lettuce and juicy tomato, all tossed in your choice of
           dressing.
@@ -81,30 +93,51 @@ const BestSellerSection = () => {
       </div>
 
       {/* BUTTONS */}
-      <div className="flex justify-center gap-4 mb-10">
-        <button
-          onClick={() => {
-            setFoodError(null);
-            setIsFoodModalOpen(true);
-          }}
-          className="
-            bg-[#2C2C2C] text-white px-6 py-2 rounded-full 
-          "
-        >
-          Add Food
-        </button>
+      <div className="flex flex-wrap justify-center lg:justify-between items-center px-3 lg:px-6 gap-2 lg:gap-4 mb-10 text-xs lg:text-lg">
+        <div className="flex flex-wrap lg:flex-nowrap justify-center gap-1 lg:gap-3 lg:mb-8">
+          {FILTERS.map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`
+        lg:px-6 lg:py-2 px-2 rounded-full font-semibold border cursor-pointer transition
+        ${
+          activeFilter === filter
+            ? "bg-[#2C2C2C] text-white border-[#2C2C2C]"
+            : "bg-white text-gray-700 border-gray-200 hover:border-[#2C2C2C]"
+        }
+      `}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
 
-        <button
-          onClick={() => {
-            setError(null);
-            setModalOpen(true);
-          }}
-          className="
-            bg-[#2C2C2C] text-white px-6 py-2 rounded-full
+        <div className="flex flex-wrap justify-center items-center gap-1 lg:gap-3 lg:mb-8">
+          <button
+            onClick={() => {
+              setFoodError(null);
+              setIsFoodModalOpen(true);
+            }}
+            className="
+            bg-[#2C2C2C] text-white lg:px-6 lg:py-2 px-2 rounded-full 
           "
-        >
-          Add Category
-        </button>
+          >
+            Add Food
+          </button>
+
+          <button
+            onClick={() => {
+              setError(null);
+              setModalOpen(true);
+            }}
+            className="
+            bg-[#2C2C2C] text-white lg;px-6 lg:py-2 px-2 rounded-full
+          "
+          >
+            Add Category
+          </button>
+        </div>
 
         {/* MODAL */}
         <AddCategoryModal
@@ -174,8 +207,9 @@ const BestSellerSection = () => {
       </div>
 
       {/* FOOD CARDS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 mt-10 gap-y-15">
-        {foods.map((food) => (
+      <div  className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-3 lg:px-6 mt-10 gap-y-15">
+        {filteredFoods.map((food) => (
           <div
             key={food._id}
             className="bg-white shadow-md rounded-b-2xl overflow-hidden"
@@ -212,6 +246,7 @@ const BestSellerSection = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );
