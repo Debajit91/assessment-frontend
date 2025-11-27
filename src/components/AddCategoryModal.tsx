@@ -3,15 +3,31 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-export function AddCategoryModal({ isOpen, onClose, onSave, isSubmitting = false, error }) {
+type AddCategoryModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (data: { name: string }) => void; 
+  isSubmitting?: boolean;
+  error?: string | null;
+};
+
+export function AddCategoryModal({
+  isOpen,
+  onClose,
+  onSave,
+  isSubmitting = false,
+  error,
+}: AddCategoryModalProps) {
   const [name, setName] = useState("");
 
   const handleSubmit = async () => {
     if (!name.trim() || isSubmitting) return;
 
-    await onSave(name.trim());
+    await onSave({name});
     setName("");
   };
+
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
