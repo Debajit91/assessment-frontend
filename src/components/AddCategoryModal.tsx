@@ -6,7 +6,7 @@ import { useState } from "react";
 type AddCategoryModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: { name: string }) => void; 
+  onSave: (name: string) => Promise<void> | void; 
   isSubmitting?: boolean;
   error?: string | null;
 };
@@ -23,7 +23,7 @@ export function AddCategoryModal({
   const handleSubmit = async () => {
     if (!name.trim() || isSubmitting) return;
 
-    await onSave({name});
+    await onSave(name);
     setName("");
   };
 
