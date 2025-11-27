@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const FEEDBACKS = [
   {
@@ -38,13 +41,28 @@ export function CustomerFeedback() {
 
   const len = FEEDBACKS.length;
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }, []);
+
   const goNext = () => setActiveIndex((prev) => (prev + 1) % len);
   const goPrev = () => setActiveIndex((prev) => (prev - 1 + len) % len);
 
   return (
-    <section className="py-3 lg:py-6 bg-white">
-      <div className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-        <div className="w-full lg:w-auto relative flex justify-center order-1 lg:order-2 mb-6 lg:mb-0">
+    <section className="py-3 lg:py-6 bg-white" data-aos="fade-up">
+      <div
+        className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center gap-10 lg:gap-16"
+        data-aos="fade-up"
+        data-aos-delay="150"
+      >
+        <div
+          className="w-full lg:w-auto relative flex justify-center order-1 lg:order-2 mb-6 lg:mb-0"
+          data-aos="zoom-in"
+          data-aos-delay="300"
+        >
           {/* red shape background */}
           <Image
             src="/images/Vector 2.png"
@@ -64,7 +82,11 @@ export function CustomerFeedback() {
           />
         </div>
         {/* LEFT: TEXT */}
-        <div className="flex-1 order-2 lg:order-1 text-center lg:text-left">
+        <div
+          className="flex-1 order-2 lg:order-1 text-center lg:text-left"
+          data-aos="slide-up"
+          data-aos-delay="450"
+        >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-black">
             Customer <span className="text-[#B71C1C]">Feedback</span>
           </h2>
@@ -81,7 +103,7 @@ export function CustomerFeedback() {
           </motion.p>
 
           {/* user info + dots */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4" data-aos="slide-up" data-aos-duration='900'>
             {/* user */}
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden">
