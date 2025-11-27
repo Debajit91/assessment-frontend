@@ -73,7 +73,7 @@ export function AddFoodModal({
             transition={{ duration: 0.25 }}
             className="
               bg-[#585858]
-              w-[50%] sm:w-[50px] lg:w-[90%]
+              w-[90%] sm:w-[300px] 
               rounded-3xl
               px-6 py-6
               text-center
